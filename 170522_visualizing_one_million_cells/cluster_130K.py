@@ -13,6 +13,7 @@ def basic_analysis(filename):
     adata = sc.read_10x_h5(filename)
     sc.pp.subsample(adata, fraction=0.1)
     sc.pp.recipe_zheng17(adata)
+    sc.pp.pca(adata)
     sc.pp.neighbors(adata)
     sc.tl.louvain(adata)
     sc.tl.umap(adata)
