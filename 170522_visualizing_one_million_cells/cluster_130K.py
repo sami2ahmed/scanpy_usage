@@ -1,7 +1,10 @@
+import dask.array as da
+from dask.distributed import Client
 import matplotlib
 matplotlib.use('Agg')  # plotting backend compatible with screen
 import sys
 import scanpy.api as sc
+from scanpy.array import sparse_dask
 
 sc.settings.verbosity = 2  # show logging output
 sc.settings.autosave = True  # save figures, do not show them
@@ -10,7 +13,9 @@ sc.settings.set_figure_params(dpi=400)  # set sufficiently high resolution for s
 filename = sys.argv[1]  # read filename from command line
 
 def basic_analysis(filename):
+    client = Client()
     adata = sc.read_10x_h5(filename)
+    adata.X = sparse_dask(adata.X, chunks=(10000, adata.X.shape[1]))
     sc.pp.subsample(adata, fraction=0.1)
     sc.pp.recipe_zheng17(adata)
     sc.pp.pca(adata)
