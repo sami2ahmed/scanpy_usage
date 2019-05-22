@@ -16,7 +16,7 @@ def basic_analysis(filename):
     sc.pp.subsample(adata, fraction=0.1)
     sc.pp.recipe_zheng17(adata)
     sc.pp.pca(adata)
-    with parallel_backend('threading'): # use all cores
+    with parallel_backend('threading', n_jobs=16):
         sc.pp.neighbors(adata)
     #sc.tl.louvain(adata)
     sc.tl.umap(adata)
