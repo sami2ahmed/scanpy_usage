@@ -26,14 +26,14 @@ gsutil -u hca-scale cp gs://ll-sc-data/10x/1M_neurons_filtered_gene_bc_matrices_
 Install official scanpy release
 
 ```bash
-pip3 install scanpy==1.4
+pip3 install scanpy==1.4.3
 ```
 
 Run 130K benchmark:
 
 ```bash
 cd ~/scanpy_usage/190426_visualizing_one_million_cells
-python3 cluster_130K.py 1M_neurons_filtered_gene_bc_matrices_h5.h5 | tee logfile_130K_scanpy14.txt
+python3 cluster_130K.py 1M_neurons_filtered_gene_bc_matrices_h5.h5 | tee logfile_130K_scanpy143.txt
 ```
 
 Install scanpy that uses umap as a dependency (not yet released):
