@@ -1,0 +1,13 @@
+reading 1M_neurons_filtered_gene_bc_matrices_h5.h5 (0:02:05.50)
+running recipe zheng17
+filtered out 6054 genes that are detected in less than 1 counts
+    finished (0:00:25.90)
+Note that scikit-learn's randomized PCA might not be exactly reproducible across different computational platforms. For exact reproducibility, choose `svd_solver='arpack'.` This will likely become the Scanpy default in the future.
+computing PCA with n_comps = 50
+    finished (0:00:04.87)
+computing neighbors
+    using 'X_pca' with n_pcs = 50
+    finished (0:01:31.54)
+computing UMAP
+    using 'X_pca' with n_pcs = 50
+    finished (0:03:35.97)

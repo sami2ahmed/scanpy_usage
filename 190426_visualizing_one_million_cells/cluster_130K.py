@@ -1,3 +1,4 @@
+from joblib import parallel_backend
 import matplotlib
 matplotlib.use('Agg')  # plotting backend compatible with screen
 import sys
@@ -15,7 +16,8 @@ def basic_analysis(filename):
     sc.pp.subsample(adata, fraction=0.1)
     sc.pp.recipe_zheng17(adata)
     sc.pp.pca(adata)
-    sc.pp.neighbors(adata)
+    with parallel_backend('threading', n_jobs=-1): # use all cores
+        sc.pp.neighbors(adata)
     #sc.tl.louvain(adata)
     sc.tl.umap(adata)
     #sc.tl.rank_genes_groups(adata, 'louvain')

@@ -27,6 +27,7 @@ Install official scanpy release
 
 ```bash
 pip3 install scanpy==1.4.3
+pip3 install pynndescent
 ```
 
 Run 130K benchmark:
@@ -36,17 +37,7 @@ cd ~/scanpy_usage/190426_visualizing_one_million_cells
 python3 cluster_130K.py 1M_neurons_filtered_gene_bc_matrices_h5.h5 | tee logfile_130K_scanpy143.txt
 ```
 
-Install scanpy that uses umap as a dependency (not yet released):
-
-```bash
-pip3 uninstall -y scanpy
-pip3 install git+https://github.com/theislab/scanpy
-
-cd ~/scanpy_usage/190426_visualizing_one_million_cells
-python3 cluster_130K.py 1M_neurons_filtered_gene_bc_matrices_h5.h5 | tee logfile_130K_scanpy_umap.txt
-```
-
-Install scanpy that uses umap and pynndescent as dependencies:
+Install scanpy that uses pynndescent as a dependency (not released). Also use a umap optimization.
 
 ```bash
 cd
@@ -54,12 +45,6 @@ pip3 uninstall -y scanpy
 rm -rf scanpy
 git clone https://github.com/tomwhite/scanpy
 (cd scanpy; mkdir data; git checkout -b pynndescent-dependency-threaded origin/pynndescent-dependency-threaded; pip3 install -e .)
-
-pip3 uninstall -y pynndescent
-pip3 install git+https://github.com/lmcinnes/pynndescent
-
-#pip3 uninstall -y umap-learn
-#pip3 install git+https://github.com/tomwhite/umap@embedding_optimization
 
 cd
 pip3 uninstall -y umap-learn
