@@ -59,5 +59,6 @@ python3 cluster_130K.py 1M_neurons_filtered_gene_bc_matrices_h5.h5 | tee logfile
 TODO: rest of pipeline
 
 ```bash
+sudo apt-get install -y libz-dev libxml2-dev
 pip3 install louvain # takes a while to install from source
 ```
