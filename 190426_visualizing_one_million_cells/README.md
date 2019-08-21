@@ -23,18 +23,27 @@ cd scanpy_usage/190426_visualizing_one_million_cells
 gsutil -u hca-scale cp gs://ll-sc-data/10x/1M_neurons_filtered_gene_bc_matrices_h5.h5 1M_neurons_filtered_gene_bc_matrices_h5.h5
 ```
 
-Install official scanpy release
+Install official scanpy release (1.4.3)
 
 ```bash
 pip3 install scanpy==1.4.3
-pip3 install pynndescent
 ```
 
 Run 130K benchmark:
 
 ```bash
 cd ~/scanpy_usage/190426_visualizing_one_million_cells
-python3 cluster_130K.py 1M_neurons_filtered_gene_bc_matrices_h5.h5 | tee logfile_130K_scanpy143.txt
+python3 cluster_130K.py 1M_neurons_filtered_gene_bc_matrices_h5.h5 | tee logfile_130K_scanpy144.txt
+```
+
+Install official scanpy release (1.4.4.post1)
+
+```bash
+cd
+pip3 uninstall -y scanpy
+pip3 install scanpy==1.4.4.post1
+cd ~/scanpy_usage/190426_visualizing_one_million_cells
+python3 cluster_130K.py 1M_neurons_filtered_gene_bc_matrices_h5.h5 | tee logfile_130K_scanpy144.txt
 ```
 
 Install scanpy that uses pynndescent as a dependency (not released). Also use a umap optimization.
