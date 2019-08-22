@@ -52,7 +52,7 @@ git clone https://github.com/tomwhite/scanpy
 
 pip3 uninstall -y umap-learn
 git clone https://github.com/tomwhite/umap
-(cd umap; git checkout -b embedding_optimization origin/embedding_optimization; pip3 install -e .)
+(cd umap; git checkout -b embedding_optimization_joblib origin/embedding_optimization_joblib; pip3 install -e .)
 ```
 
 Checkout this repo in the instance to give access to the scripts.

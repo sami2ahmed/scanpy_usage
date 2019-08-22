@@ -16,8 +16,8 @@ def basic_analysis(filename):
     sc.pp.recipe_zheng17(adata)
     with parallel_backend('threading', n_jobs=16):
         sc.pp.neighbors(adata)
-    sc.tl.louvain(adata)
-    sc.tl.umap(adata)
+        sc.tl.louvain(adata)
+        sc.tl.umap(adata)
     sc.tl.rank_genes_groups(adata, 'louvain')
     adata.write('./write/result_130K.h5ad')
     # plotting
