@@ -2,9 +2,7 @@
 
 ## Speeding up Nearest Neighbors and UMAP with CPU parallelization
 
-We will use a machine on Google Cloud Platform, since it makes it easy
-to get a GPU-enabled machine with all the software pre-configured.
-(See https://cloud.google.com/deep-learning-vm/docs/images.)
+We will use a machine on Google Cloud Platform.
 
 You may wish to change the zone specified here:
 
@@ -43,16 +41,25 @@ sudo apt-get install -y libz-dev libxml2-dev
 pip3 install louvain # takes a while to install from source
 ```
 
-Install scanpy that uses pynndescent as a dependency (not released). Also use a umap optimization.
+Install scanpy that uses pynndescent as a dependency (not released), see [https://github.com/theislab/scanpy/pull/659](https://github.com/theislab/scanpy/pull/659).
+ 
+```bash
+# Note used of sed to avoid: error in scanpy setup command: "values of 'package_data' dict" must be a list of strings (got '*.txt')
+git clone https://github.com/tomwhite/scanpy
+(cd scanpy; mkdir data; git checkout -b pynndescent-dependency-threaded origin/pynndescent-dependency-threaded; sed -i "s/package_data={'': '\*.txt'}/package_data={'': ['*.txt']}/" setup.py; pip3 install -e .)
+```
+
+Also use a umap optimization (again not released).
 
 ```bash
-# TODO: installation is failing...
-git clone https://github.com/tomwhite/scanpy
-(cd scanpy; mkdir data; git checkout -b pynndescent-dependency-threaded origin/pynndescent-dependency-threaded; pip3 install -e .)
-
 pip3 uninstall -y umap-learn
-git clone https://github.com/tomwhite/umap
-(cd umap; git checkout -b embedding_optimization_joblib origin/embedding_optimization_joblib; pip3 install -e .)
+pip3 install git+https://github.com/tomwhite/umap@embedding_optimization_joblib
+```
+
+Update various python packages to fix numba warnings:
+
+```bash
+pip3 install colorama>=0.3.9 git+https://github.com/lmcinnes/pynndescent
 ```
 
 Checkout this repo in the instance to give access to the scripts.
@@ -81,6 +88,7 @@ Install regular scanpy:
 ```bash
 pip3 uninstall -y scanpy umap-learn
 pip3 install scanpy==1.4.4.post1
+pip3 install git+https://github.com/lmcinnes/umap # fix warnings (not in umap 0.3.10)
 ```
 
 Run the analysis (regular):
