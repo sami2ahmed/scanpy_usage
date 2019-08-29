@@ -41,25 +41,30 @@ sudo apt-get install -y libz-dev libxml2-dev
 pip3 install louvain # takes a while to install from source
 ```
 
-Install scanpy that uses pynndescent as a dependency (not released), see [https://github.com/theislab/scanpy/pull/659](https://github.com/theislab/scanpy/pull/659).
- 
+Install scanpy master so we can use umap 0.4dev (not yet released):
+
 ```bash
-# Note used of sed to avoid: error in scanpy setup command: "values of 'package_data' dict" must be a list of strings (got '*.txt')
-git clone https://github.com/tomwhite/scanpy
-(cd scanpy; mkdir data; git checkout -b pynndescent-dependency-threaded origin/pynndescent-dependency-threaded; sed -i "s/package_data={'': '\*.txt'}/package_data={'': ['*.txt']}/" setup.py; pip3 install -e .)
+git clone https://github.com/theislab/scanpy
+(cd scanpy; pip3 install -e .)
 ```
 
-Also use a umap optimization (again not released).
+Install umap 0.4dev with joblib optimization (not yet merged, or released)
 
 ```bash
 pip3 uninstall -y umap-learn
-pip3 install git+https://github.com/tomwhite/umap@embedding_optimization_joblib
+pip3 install git+https://github.com/tomwhite/umap@embedding_optimization_joblib_0.4dev
+```
+
+Install pynndescent so that NN can run in multiple threads
+
+```bash
+pip3 install git+https://github.com/lmcinnes/pynndescent
 ```
 
 Update various python packages to fix numba warnings:
 
 ```bash
-pip3 install colorama>=0.3.9 git+https://github.com/lmcinnes/pynndescent
+pip3 install colorama>=0.3.9
 ```
 
 Checkout this repo in the instance to give access to the scripts.
@@ -83,7 +88,7 @@ Run the analysis (optimized):
 python3 cluster_130K_opt.py 1M_neurons_filtered_gene_bc_matrices_h5.h5
 ```
 
-Install regular scanpy:
+Install regular scanpy and umap 0.3:
 
 ```bash
 pip3 uninstall -y scanpy umap-learn
